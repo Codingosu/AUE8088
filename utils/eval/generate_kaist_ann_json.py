@@ -3,6 +3,7 @@ import os
 import json
 import xml.etree.ElementTree as ET
 
+# by : python utils/eval/generate_kaist_ann_json.py --textListFile datasets/kaist-rgbt/test-all-20_fold5.txt --xmlAnnDir datasets/kaist-rgbt/train/labels-xml --jsonAnnFile utils/eval/KAIST_val-A_annotation.json
 
 def convert_ann_xml2json(textListFile, xmlAnnDir, jsonAnnFile):
 

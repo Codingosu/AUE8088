@@ -1,4 +1,7 @@
 # YOLOv5 🚀 by Ultralytics, AGPL-3.0 license
+
+# by 수정 : Classification, sementation model이 yolo에 없어서 제거
+
 """
 Export a YOLOv5 PyTorch model to other formats. TensorFlow exports authored by https://github.com/zldrobit
 
@@ -68,7 +71,9 @@ if platform.system() != "Windows":
     ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 from models.experimental import attempt_load
-from models.yolo import ClassificationModel, Detect, DetectionModel, SegmentationModel
+# from models.yolo import ClassificationModel, Detect, DetectionModel, SegmentationModel
+# by 수정
+from models.yolo import Detect, DetectionModel
 from utils.dataloaders import LoadImages
 from utils.general import (
     LOGGER,

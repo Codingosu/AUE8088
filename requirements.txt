@@ -1,6 +1,14 @@
 # YOLOv5 requirements
 # Usage: pip install -r requirements.txt
 
+# by_origin : python train_simple.py --img 640 --batch-size 16 --epochs 20 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights yolov5n.pt --workers 16 --name yolov5n-rgbt --entity codingosu-hanyang-university --rgbt --single-cls
+# by : python train_simple.py --img 640 --batch-size 16 --epochs 10 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights yolov5n.pt --workers 6 --name yolov5n-rgbt --entity codingosu-hanyang-university --rgbt --single-cls
+# python train_simple.py --img 640 --batch-size 16 --epochs 10 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights yolov5n.pt --workers 4 --name yolov5n-rgbt --entity codingosu-hanyang-university --rgbt --single-cls
+# python train_simple.py --img 640 --batch-size 64 --epochs 10 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights yolov5n.pt --workers 4 --name yolov5n-rgbt --entity codingosu-hanyang-university --rgbt --single-cls
+# python train_simple.py --img 640 --batch-size 16 --epochs 1 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights yolov5n.pt --workers 6 --name yolov5n-rgbt --entity codingosu-hanyang-university --rgbt --single-cls
+
+# python train_simple_fold.py --img 640 --batch-size 16 --epochs 1 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights yolov5n.pt --workers 6 --name yolov5n-rgbt --entity codingosu-hanyang-university --rgbt --single-cls --folds 2
+
 # Base ------------------------------------------------------------------------
 gitpython>=3.1.30
 matplotlib==3.10.1
@@ -12,8 +20,8 @@ PyYAML==6.0.2
 requests==2.32.3
 scipy==1.15.2
 thop>=0.1.1  # FLOPs computation
-torch==2.7.0  # see https://pytorch.org/get-started/locally (recommended)
-torchvision==0.22.0
+# by 주석 torch==2.7.0  # see https://pytorch.org/get-started/locally (recommended)
+# by 주석 torchvision==0.22.0
 tqdm==4.67.1
 ultralytics==8.3.128
 # protobuf<=3.20.1  # https://github.com/ultralytics/yolov5/issues/8012

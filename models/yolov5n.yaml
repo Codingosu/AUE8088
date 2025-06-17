@@ -9,6 +9,13 @@ anchors:
   - [30, 61, 62, 45, 59, 119] # P4/16
   - [116, 90, 156, 198, 373, 326] # P5/32
 
+# by anchor choice
+# anchors:
+#   - [20, 57, 20, 45, 22, 37] # P3/8
+#   - [44, 121, 34, 91, 27, 76] # P4/16
+#   - [75, 216, 96, 312, 181, 72] # P5/32
+
+
 # YOLOv5 v6.0 backbone
 backbone:
   # [from, number, module, args]

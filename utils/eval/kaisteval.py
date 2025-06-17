@@ -635,7 +635,9 @@ def evaluate(test_annotation_file: str, user_submission_file: str, phase_codenam
 
     print('')
     # eval_result['night'].params.imgIds = imgIds[1455:]
-    eval_result['day'].params.imgIds = [ii for ii, img in kaistGt.imgs.items() if get_time_of_day(img['im_name']) == 'night']
+    # by : eval_result['day'].params.imgIds = [ii for ii, img in kaistGt.imgs.items() if get_time_of_day(img['im_name']) == 'night']
+    # by 수정
+    eval_result['night'].params.imgIds = [ii for ii, img in kaistGt.imgs.items() if get_time_of_day(img['im_name']) == 'night']
     eval_result['night'].evaluate(0)
     eval_result['night'].accumulate()
     MR_night = eval_result['night'].summarize(0, subsetStr='Night')

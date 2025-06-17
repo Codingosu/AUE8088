@@ -1,4 +1,14 @@
 # YOLOv5 🚀 by Ultralytics, AGPL-3.0 license
+
+# python train_simple.py --img 640 --batch-size 16 --epochs 2 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights yolov5n.pt --workers 6 --name yolov5n-rgbt --entity codingosu-hanyang-university --rgbt --single-cls
+# python train_simple.py --img 640 --batch-size 16 --epochs 20 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights yolov5n.pt --workers 6 --name yolov5n-rgbt --entity codingosu-hanyang-university --rgbt --single-cls
+
+# python train_simple.py --img 640 --batch-size 16 --epochs 1 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights runs/train/baseline_fold5_epoch20/weights/best.pt --workers 6 --name yolov5n-rgbt --entity codingosu-hanyang-university --rgbt --single-cls
+
+# python train_simple.py --img 640 --batch-size 16 --epochs 20 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights yolov5n.pt --workers 6 --name EvalAI --entity codingosu-hanyang-university --rgbt --single-cls
+# python train_simple.py --img 640 --batch-size 16 --epochs 20 --data data\kaist-rgbt.yaml --cfg models\yolov5n_kaist-rgbt.yaml --weights yolov5n.pt --workers 6 --name test --entity codingosu-hanyang-university --rgbt --single-cls
+
+
 """
 Train a YOLOv5 model on a custom dataset.
 
@@ -199,6 +209,7 @@ def train(hyp, opt, device, callbacks):
     )
     labels = np.concatenate(dataset.labels, 0)
     mlc = int(labels[:, 0].max())  # max label class
+
     assert mlc < nc, f"Label class {mlc} exceeds nc={nc} in {data}. Possible class labels are 0-{nc - 1}"
 
     # Valloader
@@ -265,14 +276,24 @@ def train(hyp, opt, device, callbacks):
         pbar = tqdm(pbar, total=nb, bar_format=TQDM_BAR_FORMAT)  # progress bar
         optimizer.zero_grad()
 
+        # for i, (imgs, targets, paths, _, _) in pbar:  # batch -------------------------------------------------------------
+        #     callbacks.run("on_train_batch_start")
+        #     ni = i + nb * epoch  # number integrated batches (since train start)
+
+        #     if isinstance(imgs, list):
+        #         imgs = [img.to(device, non_blocking=True).float() / 255 for img in imgs]    # For RGB-T input
+        #     else:
+        #         imgs = imgs.to(device, non_blocking=True).float() / 255  # uint8 to float32, 0-255 to 0.0-1.0
+        
         for i, (imgs, targets, paths, _, _) in pbar:  # batch -------------------------------------------------------------
             callbacks.run("on_train_batch_start")
             ni = i + nb * epoch  # number integrated batches (since train start)
 
-            if isinstance(imgs, list):
-                imgs = [img.to(device, non_blocking=True).float() / 255 for img in imgs]    # For RGB-T input
+            # list뿐 아니라 tuple도 처리하도록 검사 조건에 tuple 추가
+            if isinstance(imgs, (list, tuple)):
+                imgs = [img.to(device, non_blocking=True).float() / 255 for img in imgs]
             else:
-                imgs = imgs.to(device, non_blocking=True).float() / 255  # uint8 to float32, 0-255 to 0.0-1.0
+                imgs = imgs.to(device, non_blocking=True).float() / 255
 
             # Warmup
             if ni <= nw:
@@ -405,7 +426,7 @@ def train(hyp, opt, device, callbacks):
 
     callbacks.run("on_train_end", last, best, epoch, results)
 
-    torch.cuda.empty_cache()
+    torch.cuda.empty_cache() 
     return results
 
 
